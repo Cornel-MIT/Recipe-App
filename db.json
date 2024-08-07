@@ -1,5 +1,34 @@
 {
-    "recipes": [],
-    "users": []
-  }
-  
+  "recipes": [
+    {
+      "id": "f96a",
+      "title": "Pap ",
+      "ingredients": "Water and Maize",
+      "instructions": "Boil everything",
+      "category": "Main Course",
+      "preparation": "20 min",
+      "cookingTime": "1 hour",
+      "servings": "Meat"
+    },
+    {
+      "id": "6628",
+      "title": "Rice",
+      "ingredients": "water and Spice",
+      "instructions": "Boil till you get hungry",
+      "category": "Main Course",
+      "preparation": "20 min",
+      "cookingTime": "30 min ",
+      "servings": "Meat"
+    },
+    {
+      "id": "74da",
+      "title": "Amasi",
+      "ingredients": "Milk",
+      "instructions": "Just make sure you do not put any sugar",
+      "category": "Appetizers",
+      "preparation": "5 min",
+      "cookingTime": "1 min",
+      "servings": "pap"
+    }
+  ]
+}
