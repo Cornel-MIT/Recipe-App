@@ -29,6 +29,24 @@
       "preparation": "5 min",
       "cookingTime": "1 min",
       "servings": "pap"
+    },
+    {
+      "id": "0b0f",
+      "title": "Corn flakes",
+      "ingredients": "milk and sugar",
+      "instructions": "Warm-up milk in a bowl",
+      "category": "Dessert",
+      "preparation": "5 min",
+      "cookingTime": "1 min",
+      "servings": "cream"
+    }
+  ],
+  "users": [
+    {
+      "id": "c8e7",
+      "email": "sam@sm34gmail.com",
+      "password": "sam@11",
+      "name": "Sam"
     }
   ]
 }
