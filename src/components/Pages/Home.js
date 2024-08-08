@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import RecipeCard from '../RecipeCard';
+import RecipeCard from '../RecipeCard'; 
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 function Home() {
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState('');
+  const { logout } = useContext(AuthContext);
 
   useEffect(() => {
     fetchRecipes();
@@ -43,6 +45,7 @@ function Home() {
         value={search}
         onChange={handleSearchChange}
       />
+      <button onClick={logout}>Logout</button>
       <div>
         {filteredRecipes.map(recipe => (
           <RecipeCard key={recipe.id} recipe={recipe} onDelete={handleDelete} />

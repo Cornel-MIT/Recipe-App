@@ -10,7 +10,8 @@ function AddRecipe() {
     category: 'Dessert',
     preparation: '',
     cookingTime: '',
-    servings: ''
+    servings: '',
+    image: '' 
   });
 
   const navigate = useNavigate();
@@ -31,6 +32,20 @@ function AddRecipe() {
       ...recipe,
       [name]: value
     });
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setRecipe({
+          ...recipe,
+          image: reader.result 
+        });
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -100,6 +115,11 @@ function AddRecipe() {
           value={recipe.servings}
           onChange={handleChange}
           required
+        />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
         />
         <button type="submit">{isEdit ? 'Update Recipe' : 'Add Recipe'}</button>
       </form>

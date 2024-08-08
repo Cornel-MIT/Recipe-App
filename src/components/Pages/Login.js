@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 
 const Login = () => {
@@ -24,6 +25,7 @@ const Login = () => {
           placeholder="Email"
           value={credentials.email}
           onChange={handleChange}
+          required
         />
         <input
           type="password"
@@ -31,9 +33,14 @@ const Login = () => {
           placeholder="Password"
           value={credentials.password}
           onChange={handleChange}
+          required
         />
-        <button type="submit">Login</button>
+        <button type="submit" style={{ width: '100%', padding: '10px' }}>Login</button>
       </form>
+      <p style={{ marginTop: '20px' }}>
+        Don't have an account?{' '}
+        <Link to="/register">Register here</Link>
+      </p>
     </div>
   );
 };
