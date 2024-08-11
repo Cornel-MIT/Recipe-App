@@ -1,21 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../context/AuthProvider';
+import './Profile.css';
 
 const Profile = () => {
-  const [profilePic, setProfilePic] = useState('');
+  const { user } = useContext(AuthContext);
+  const [profilePicture, setProfilePicture] = useState(() => {
+    return localStorage.getItem('profilePicture') || null;
+  });
 
   useEffect(() => {
-    const savedProfilePic = localStorage.getItem('profilePic');
-    if (savedProfilePic) {
-      setProfilePic(savedProfilePic);
+    if (profilePicture) {
+      localStorage.setItem('profilePicture', profilePicture);
     }
-  }, []);
+  }, [profilePicture]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
-      setProfilePic(reader.result);
-      localStorage.setItem('profilePic', reader.result);
+      const base64 = reader.result;
+      setProfilePicture(base64);
     };
     if (file) {
       reader.readAsDataURL(file);
@@ -23,24 +27,36 @@ const Profile = () => {
   };
 
   return (
-    <div className="profile-container">
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleImageChange}
-        style={{ display: 'none' }}
-        id="profile-input"
-      />
-      <label htmlFor="profile-input">
-        <img
-          src={profilePic || 'https://via.placeholder.com/150'}
-          alt="Profile"
-          className="profile-pic"
+    <div className="profile">
+      <h2>User Profile</h2>
+      <div className="profile-info">
+        {profilePicture ? (
+          <img
+            src={profilePicture}
+            alt="Profile"
+            className="profile-picture"
+            onClick={() => document.getElementById('profilePicInput').click()}
+          />
+        ) : (
+          <button onClick={() => document.getElementById('profilePicInput').click()}>
+            Add Profile Picture
+          </button>
+        )}
+        <input
+          type="file"
+          accept="image/*"
+          id="profilePicInput"
+          style={{ display: 'none' }}
+          onChange={handleImageChange}
         />
-      </label>
+        <div className="user-details">
+          <h3>{user?.username}</h3>
+          <p>User ID: {user?.id}</p>
+          {/* Add more user details as needed */}
+        </div>
+      </div>
     </div>
   );
 };
 
 export default Profile;
-
