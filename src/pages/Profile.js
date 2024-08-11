@@ -1,25 +1,42 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthProvider';
+import axios from 'axios';
 import './Profile.css';
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
-  const [profilePicture, setProfilePicture] = useState(() => {
-    return localStorage.getItem('profilePicture') || null;
-  });
+  const [profilePicture, setProfilePicture] = useState(null);
 
   useEffect(() => {
-    if (profilePicture) {
-      localStorage.setItem('profilePicture', profilePicture);
+    if (user && user.id) {
+      fetchProfilePicture();
     }
-  }, [profilePicture]);
+  }, [user]);
 
-  const handleImageChange = (e) => {
+  const fetchProfilePicture = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/users/${user.id}`);
+      if (response.data && response.data.profilePicture) {
+        setProfilePicture(response.data.profilePicture);
+      }
+    } catch (error) {
+      console.error('Error fetching profile picture:', error);
+    }
+  };
+
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
-    reader.onloadend = () => {
+    reader.onloadend = async () => {
       const base64 = reader.result;
-      setProfilePicture(base64);
+      try {
+        await axios.patch(`http://localhost:5000/users/${user.id}`, {
+          profilePicture: base64
+        });
+        setProfilePicture(base64);
+      } catch (error) {
+        console.error('Error updating profile picture:', error);
+      }
     };
     if (file) {
       reader.readAsDataURL(file);
@@ -52,7 +69,6 @@ const Profile = () => {
         <div className="user-details">
           <h3>{user?.username}</h3>
           <p>User ID: {user?.id}</p>
-          {/* Add more user details as needed */}
         </div>
       </div>
     </div>

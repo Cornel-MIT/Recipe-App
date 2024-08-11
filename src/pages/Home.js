@@ -5,7 +5,7 @@ import './Home.css';
 import Profile from './Profile';
 import { AuthContext } from '../context/AuthProvider';
 
-const categories = ["Dessert", "Main Course", "Appetizers"];
+const categories = ["Dessert", "Main Course", "Appetizers", "Breakfast-Brunch", "Cakes", "Lunch"];
 
 const Home = () => {
   const { user, logout, isAuthenticated } = useContext(AuthContext);
