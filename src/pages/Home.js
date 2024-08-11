@@ -15,6 +15,7 @@ const Home = () => {
   const [formVisible, setFormVisible] = useState(false);
   const [currentRecipe, setCurrentRecipe] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     ingredients: '',
@@ -121,6 +122,10 @@ const Home = () => {
     history.push('/login');
   };
 
+  const showRecipeDetails = (recipe) => {
+    setSelectedRecipe(recipe);
+  };
+
   return (
     <div className="home-container">
       <Profile />
@@ -166,9 +171,10 @@ const Home = () => {
             name="category"
             value={formData.category}
             onChange={handleInputChange}
+            required
           >
-            {categories.map(cat => (
-              <option key={cat} value={cat}>{cat}</option>
+            {categories.map(category => (
+              <option key={category} value={category}>{category}</option>
             ))}
           </select>
           <input
@@ -176,8 +182,7 @@ const Home = () => {
             name="preparation"
             value={formData.preparation}
             onChange={handleInputChange}
-            placeholder="Preparation"
-            required
+            placeholder="Preparation Time"
           />
           <input
             type="text"
@@ -185,43 +190,21 @@ const Home = () => {
             value={formData.cookingTime}
             onChange={handleInputChange}
             placeholder="Cooking Time"
-            required
           />
           <input
-            type="number"
+            type="text"
             name="servings"
             value={formData.servings}
             onChange={handleInputChange}
-            placeholder="Servings"
-            required
+            placeholder="Number of Servings"
           />
           <input
             type="file"
             accept="image/*"
             onChange={handleImageChange}
           />
-          {formData.image && (
-            <img
-              src={formData.image}
-              alt="Recipe"
-              style={{ maxWidth: '100%', marginTop: '10px' }}
-            />
-          )}
+          {formData.image && <img src={formData.image} alt="Recipe Preview" />}
           <button type="submit">{currentRecipe ? 'Update Recipe' : 'Add Recipe'}</button>
-          <button type="button" onClick={() => {
-            setFormVisible(false);
-            setCurrentRecipe(null);
-            setFormData({
-              name: '',
-              ingredients: '',
-              instructions: '',
-              category: categories[0],
-              preparation: '',
-              cookingTime: '',
-              servings: '',
-              image: ''
-            });
-          }}>Cancel</button>
         </form>
       )}
 
@@ -229,26 +212,43 @@ const Home = () => {
         {filteredRecipes.map(recipe => (
           <div key={recipe.id} className="recipe-card">
             <h3>{recipe.name}</h3>
-            <p><strong>Ingredients:</strong> {recipe.ingredients}</p>
-            <p><strong>Instructions:</strong> {recipe.instructions}</p>
             <p><strong>Category:</strong> {recipe.category}</p>
-            <p><strong>Preparation:</strong> {recipe.preparation}</p>
-            <p><strong>Cooking Time:</strong> {recipe.cookingTime}</p>
-            <p><strong>Servings:</strong> {recipe.servings}</p>
             {recipe.image && (
               <img
                 src={recipe.image}
-                alt="Recipe"
-                style={{ maxWidth: '100%', marginTop: '10px' }}
+                alt={recipe.name}
               />
             )}
-            <div className="button-group">
-              <button className="btn-edit" onClick={() => handleEdit(recipe)}>Edit</button>
-              <button className="btn-delete" onClick={() => handleDelete(recipe.id)}>Delete</button>
-            </div>
+            <button onClick={() => showRecipeDetails(recipe)}>Show Recipe</button>
           </div>
         ))}
       </div>
+
+      {selectedRecipe && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={() => setSelectedRecipe(null)}>&times;</span>
+            <h2>{selectedRecipe.name}</h2>
+            <p><strong>Category:</strong> {selectedRecipe.category}</p>
+            <p><strong>Ingredients:</strong> {selectedRecipe.ingredients}</p>
+            <p><strong>Instructions:</strong> {selectedRecipe.instructions}</p>
+            <p><strong>Preparation:</strong> {selectedRecipe.preparation}</p>
+            <p><strong>Cooking Time:</strong> {selectedRecipe.cookingTime}</p>
+            <p><strong>Servings:</strong> {selectedRecipe.servings}</p>
+            {selectedRecipe.image && (
+              <img
+                src={selectedRecipe.image}
+                alt={selectedRecipe.name}
+                className="recipe-image"
+              />
+            )}
+            <div className="button-group">
+              <button className="btn-edit" onClick={() => handleEdit(selectedRecipe)}>Edit</button>
+              <button className="btn-delete" onClick={() => handleDelete(selectedRecipe.id)}>Delete</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
