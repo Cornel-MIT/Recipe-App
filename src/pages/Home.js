@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import './Home.css';
 import Profile from './Profile';
 import { AuthContext } from '../context/AuthProvider';
 
-const categories = ["Dessert", "Main Course", "Appetizers", "Breakfast-Brunch", "Cakes", "Lunch"];
+const categories = ["Dessert", "Main Course", "Appetizers", "Breakfast-Brunch", "Cakes", "Lunch, Dinner"];
 
 const Home = () => {
   const { user, logout, isAuthenticated } = useContext(AuthContext);
@@ -27,15 +27,7 @@ const Home = () => {
     image: '',
   });
 
-  useEffect(() => {
-    if (!isAuthenticated()) {
-      history.push('/login');
-    } else {
-      fetchRecipes();
-    }
-  }, [isAuthenticated, history]);
-
-  const fetchRecipes = async () => {
+  const fetchRecipes = useCallback(async () => {
     try {
       const response = await axios.get('http://localhost:5000/recipes');
       const userRecipes = response.data.filter(recipe => recipe.userId === user.id);
@@ -44,7 +36,15 @@ const Home = () => {
     } catch (error) {
       console.error('Error fetching recipes:', error);
     }
-  };
+  }, [user.id]);
+
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      history.push('/login');
+    } else {
+      fetchRecipes();
+    }
+  }, [isAuthenticated, history, fetchRecipes]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -129,7 +129,7 @@ const Home = () => {
   return (
     <div className="home-container">
       <Profile />
-      <h2>Welcome, {user?.username}!</h2>
+      <h2 className='home-title'>Welcome, {user?.username}!</h2>
       
       <div className="controls">
         <input
@@ -192,7 +192,7 @@ const Home = () => {
             placeholder="Cooking Time"
           />
           <input
-            type="text"
+            type="number"
             name="servings"
             value={formData.servings}
             onChange={handleInputChange}
@@ -219,7 +219,7 @@ const Home = () => {
                 alt={recipe.name}
               />
             )}
-            <button onClick={() => showRecipeDetails(recipe)}>Show Recipe</button>
+            <button className='showR-btn' onClick={() => showRecipeDetails(recipe)}>Show Recipe</button>
           </div>
         ))}
       </div>
