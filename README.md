@@ -29,12 +29,17 @@ Build an application using React.js and JSON server that allows users to store, 
 ## Pages
 ### 1. Login Page
 Users can log in with their credentials.
+![Login Page](src/images/LoginPage.png)
 
 ### 2. Registration Page
 New users can register with their details.
+![Register Page](src/images/Register.png)
 
 ### 3. Home Page
 Displays the list of recipes with options to add, delete, or edit.
+![Edit or Delete Recipe](src/images/Edit-and-Delete.png)
+
+![Create Recipe](src/images/Create-Recipe.png)
 
 ## Technologies Used
 - **Frontend**: React.js
@@ -66,11 +71,7 @@ Displays the list of recipes with options to add, delete, or edit.
 
 
 ## Images
-![Register Page](src/images/Register.png)
-![Login Page](src/images/LoginPage.png)
 ![Home Page](src/images/HomePage.png)
-![Create Recipe](src/images/Create-Recipe.png)
-![Edit or Delete Recipe](src/images/Edit-and-Delete.png)
 
 
 ## Future Enhancements
