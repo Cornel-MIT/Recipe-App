@@ -1,70 +1,86 @@
-# Getting Started with Create React App
+# Online Recipe Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Objective
+Build an application using React.js and JSON server that allows users to store, manage, and refer to their favorite dishes as recipes.
 
-## Available Scripts
+## Features
+- **User Authentication**: Users can register and log in.
+- **CRUD Operations**: Create, Read, Update, and Delete recipes.
+- **Search Function**: Users can search for recipes by keyword.
+- **Responsive Design**: Ensures the application is user-friendly across devices.
 
-In the project directory, you can run:
+## Data Structure
+- **Id**: integer
+- **Name**: string
+- **Ingredients**: array of strings
+- **Instructions**: string or array of step-by-step instructions
+- **Picture**: string pointing to the image location
+- **Category**: string (e.g., Dessert, Main Course, Appetizer)
+- **Preparation Time**: string
+- **Cooking Time**: string
+- **Servings**: integer
 
-### `npm start`
+## Endpoints
+- **GET** `/recipes`: Fetch all recipes
+- **POST** `/recipes`: Add a new recipe
+- **DELETE** `/recipes/:id`: Remove an existing recipe
+- **PATCH** `/recipes/:id`: Update an existing recipe
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Pages
+### 1. Login Page
+Users can log in with their credentials.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 2. Registration Page
+New users can register with their details.
 
-### `npm test`
+### 3. Home Page
+Displays the list of recipes with options to add, delete, or edit.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technologies Used
+- **Frontend**: React.js
+- **Backend**: JSON Server
+- **HTTP Client**: Axios (for making API requests)
+- **State Management**: React Context
+- **Styling**: CSS or a UI framework 
 
-### `npm run build`
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Cornel-MIT/Recipe-App.git
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Navigate to the project directory:
+   ```bash
+   cd Recipe-App
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Install dependencies:
+   ```bash
+   npm install
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. Start the JSON server:
+   ```bash
+   json-server --watch db.json --port 5000
+         
+4. Start the React application:
+   ```bash
+   npm start
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Images
+![Register Page](src/images/Register.png)
+![Login Page](src/images/LoginPage.png)
+![Home Page](src/images/HomePage.png)
+![Create Recipe](src/images/Create-Recipe.png)
+![Edit or Delete Recipe](src/images/Edit-and-Delete.png)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Future Enhancements
+- **User Profiles**: Allow users to create profiles to save their favorite recipes and view their recipe history.
+- **Recipe Rating System**: Implement a rating system for users to rate recipes and provide feedback.
+- **Advanced Search Filters**: Add filters for categories, preparation time, dietary restrictions, etc.
+- **Image Upload**: Allow users to upload their own images for recipes instead of using URLs.
+- **Meal Planning Feature**: Introduce functionality for users to plan meals for the week and generate shopping lists.
+- **Recipe Sharing**: Enable users to share recipes with friends via social media or direct links.
+- **Improved UI/UX**: Enhance the user interface with animations and better layout design for improved user experience.
+- **Dark Mode**: Implement a dark mode toggle for user preference.
+- **Notifications**: Introduce notifications for new recipes, comments, or updates.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
