@@ -69,6 +69,10 @@ Displays the list of recipes with options to add, delete, or edit.
    ```bash
    npm start
 
+4. Domain:
+   ```bash
+   https://recipe-app-seven-ruddy.vercel.app/  
+
 
 ## Images
 ![Home Page](src/images/HomePage.png)
